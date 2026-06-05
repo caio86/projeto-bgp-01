@@ -39,9 +39,19 @@ network 10.20.12.0 0.0.0.255 area 0
 network 10.20.42.0 0.0.0.255 area 0
 network 2.2.2.2 0.0.0.0 area 0
 !
-route-map SET-PREPEND
+ip as-path access-list 20 permit ^$
+ip as-path access-list 30 permit ^30$
+!
+route-map TO-AS30 permit 10
 set as-path prepend 20 20 20
-exit 
+match as-path 20
+!
+route-map FROM-AS30 permit 10
+set local-preference 300
+match as-path 30
+!
+route-map TO-AS100 permit 10
+set as-path prepend 20 20 20
 !
 router bgp 20
 !
@@ -57,10 +67,11 @@ neighbor 6.6.6.6 remote-as 30
 neighbor 6.6.6.6 ttl-security hops 1
 neighbor 6.6.6.6 disable-connected-check
 neighbor 6.6.6.6 update-source Loopback0
-neighbor 6.6.6.6 route-map SET-PREPEND out
+neighbor 6.6.6.6 route-map TO-AS30 out
+neighbor 6.6.6.6 route-map FROM-AS30 in
 !
 neighbor 1.100.0.8 remote-as 100
-neighbor 1.100.0.8 route-map SET-PREPEND out
+neighbor 1.100.0.8 route-map TO-AS100 out
 !
 end
 !
