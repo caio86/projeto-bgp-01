@@ -39,6 +39,10 @@ network 10.20.12.0 0.0.0.255 area 0
 network 10.20.42.0 0.0.0.255 area 0
 network 2.2.2.2 0.0.0.0 area 0
 !
+route-map SET-PREPEND
+set as-path prepend 20 20 20
+exit 
+!
 router bgp 20
 !
 neighbor RR peer-group
@@ -53,8 +57,10 @@ neighbor 6.6.6.6 remote-as 30
 neighbor 6.6.6.6 ttl-security hops 1
 neighbor 6.6.6.6 disable-connected-check
 neighbor 6.6.6.6 update-source Loopback0
+neighbor 6.6.6.6 route-map SET-PREPEND out
 !
 neighbor 1.100.0.8 remote-as 100
+neighbor 1.100.0.8 route-map SET-PREPEND out
 !
 end
 !
