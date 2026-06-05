@@ -1,0 +1,60 @@
+## r2 ##
+!
+enable
+conf t
+!
+hostname R2
+no ip domain-lookup
+!
+interface Ethernet0/0
+ip add 10.20.12.2 255.255.255.0
+no shut
+!
+interface Ethernet0/1
+ip add 10.20.42.2 255.255.255.0
+no shut
+!
+interface Ethernet0/2
+no shut
+!
+interface Ethernet0/2.10
+encapsulation dot1Q 10
+ip add 1.100.0.2 255.255.255.0
+no shut
+!
+interface Ethernet0/2.20
+encapsulation dot1Q 20
+ip add 1.20.30.2 255.255.255.0
+no shut
+!
+interface lo0
+ip add 2.2.2.2 255.255.255.255
+no shut
+!
+ip route 6.6.6.6 255.255.255.255 1.20.30.6
+!
+router ospf 1
+router-id 2.2.2.2
+network 10.20.12.0 0.0.0.255 area 0
+network 10.20.42.0 0.0.0.255 area 0
+network 2.2.2.2 0.0.0.0 area 0
+!
+router bgp 20
+!
+neighbor RR peer-group
+neighbor RR remote-as 20
+neighbor RR update-source lo0
+neighbor RR next-hop-self
+!
+neighbor 1.1.1.1 peer-group RR
+neighbor 4.4.4.4 peer-group RR
+!
+neighbor 6.6.6.6 remote-as 30
+neighbor 6.6.6.6 ttl-security hops 1
+neighbor 6.6.6.6 disable-connected-check
+neighbor 6.6.6.6 update-source Loopback0
+!
+neighbor 1.100.0.8 remote-as 100
+!
+end
+!
