@@ -1,0 +1,47 @@
+## r7 ##
+!
+enable
+conf t
+!
+hostname R7
+no ip domain-lookup
+!
+ipv6 unicast-routing
+!
+interface Ethernet0/0
+ ip address 1.10.20.7 255.255.255.0
+ no shut
+!
+interface Ethernet0/1
+ ip address 1.100.10.7 255.255.255.0
+ ipv6 address FC00:100:10::7/64
+ no shut
+!
+interface Ethernet0/2
+ ip address 200.10.0.1 255.255.255.0
+ ipv6 address 2003:10:10::1/64
+ no shut
+!
+router bgp 10
+!
+no bgp default ipv4-unicast
+!
+neighbor 1.100.10.8 remote-as 100
+neighbor FC00:100:10::8 remote-as 100
+neighbor 1.10.20.3 remote-as 20
+!
+address-family ipv4
+network 200.10.0.0
+neighbor 1.100.10.8 activate
+neighbor 1.100.10.8 weight 10
+neighbor 1.10.20.3 activate
+exit-address-family
+!
+address-family ipv6
+network 2003:10:10::/64
+neighbor FC00:100:10::8 activate
+neighbor FC00:100:10::8 weight 10
+exit-address-family
+!
+end
+!
