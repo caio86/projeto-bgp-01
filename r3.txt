@@ -28,6 +28,10 @@ network 10.20.34.0 0.0.0.255 area 0
 network 10.20.13.0 0.0.0.255 area 0
 network 3.3.3.3 0.0.0.0 area 0
 !
+route-map SET-LOCAL-PREFERENCE
+set local-preference 200
+exit
+!
 router bgp 20
 !
 neighbor RR peer-group
@@ -39,6 +43,7 @@ neighbor 1.1.1.1 peer-group RR
 neighbor 4.4.4.4 peer-group RR
 !
 neighbor 1.10.20.7 remote-as 10
+neighbor 1.10.20.7 route-map SET-LOCAL-PREFERENCE in
 !
 end
 !
