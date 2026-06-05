@@ -1,0 +1,39 @@
+## r1 ##
+!
+enable
+conf t
+!
+hostname R1
+no ip domain-lookup
+!
+interface Ethernet0/0
+ip add 10.20.12.1 255.255.255.0
+no shut
+!
+interface Ethernet0/1
+ip add 10.20.13.1 255.255.255.0
+no shut
+!
+interface lo0
+ip add 1.1.1.1 255.255.255.255
+no shut
+!
+router ospf 1
+router-id 1.1.1.1
+network 10.20.12.0 0.0.0.255 area 0
+network 10.20.13.0 0.0.0.255 area 0
+network 1.1.1.1 0.0.0.0 area 0
+!
+router bgp 20
+!
+neighbor RR-CLIENTS peer-group
+neighbor RR-CLIENTS remote-as 20
+neighbor RR-CLIENTS update-source lo0
+neighbor RR-CLIENTS route-reflector-client
+!
+neighbor 2.2.2.2 peer-group RR-CLIENTS
+neighbor 3.3.3.3 peer-group RR-CLIENTS
+neighbor 4.4.4.4 peer-group RR-CLIENTS
+!
+end
+!
