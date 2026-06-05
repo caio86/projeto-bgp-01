@@ -36,9 +36,9 @@ neighbor RR-CLIENTS remote-as 20
 neighbor RR-CLIENTS update-source lo0
 neighbor RR-CLIENTS route-reflector-client
 !
+neighbor 1.1.1.1 peer-group RR-CLIENTS
 neighbor 2.2.2.2 peer-group RR-CLIENTS
 neighbor 3.3.3.3 peer-group RR-CLIENTS
-neighbor 4.4.4.4 peer-group RR-CLIENTS
 !
 network 200.20.0.0
 !
