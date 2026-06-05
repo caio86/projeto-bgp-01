@@ -31,6 +31,8 @@ passive-interface e0/2
 !
 router bgp 20
 !
+bgp cluster-id 20.20.20.20
+!
 neighbor RR-CLIENTS peer-group
 neighbor RR-CLIENTS remote-as 20
 neighbor RR-CLIENTS update-source lo0
