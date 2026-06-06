@@ -22,6 +22,15 @@ interface Ethernet0/2
  ipv6 address 2003:10:10::1/64
  no shut
 !
+ip as-path access-list 20 permit ^20$
+!
+route-map FROM-AS20 permit 10
+set weight 300
+match as-path 20
+!
+route-map FROM-AS20 permit 20
+exit
+!
 router bgp 10
 !
 no bgp default ipv4-unicast
@@ -35,6 +44,7 @@ network 200.10.0.0
 neighbor 1.100.10.8 activate
 neighbor 1.100.10.8 weight 10
 neighbor 1.10.20.3 activate
+neighbor 1.10.20.3 route-map FROM-AS20 in
 exit-address-family
 !
 address-family ipv6
