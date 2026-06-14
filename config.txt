@@ -1,6 +1,16 @@
 Nome: Caio Luiz Lacerda Terto Silva
 Matricula: 20241380022
 Email: caio.luiz@academico.ifpb.edu.br
+
+Nome: Pedro Henrique Rodrigues Alves
+Matricula: 20241380026
+Email: pedro-alves.pa@academico.ifpb.edu.br
+
+Nome: Felipe da Silva Oliveira
+Matricula: 20241380003
+Email: felipe.oliveira.2@academico.ifpb.edu.br
+
+
 Data finalização: 05/06/2026
 
 ## r1 ##
